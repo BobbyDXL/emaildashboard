@@ -1,0 +1,355 @@
+<html>
+  <head>
+    <title>Payment Successful</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      :root {
+        --primary-color: #1a73e8;
+        --primary-hover: #1557b0;
+        --text-primary: #202124;
+        --text-secondary: #5f6368;
+        --background: #f8f9fc;
+        --border-color: #dadce0;
+        --success-bg: #f3f8ff;
+      }
+
+      body {
+        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto",
+          Arial, sans-serif;
+        background-color: var(--background);
+        margin: 0;
+        padding: 24px 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        line-height: 1.6;
+        color: var(--text-primary);
+      }
+
+      .outer-container {
+        background-color: #ffffff;
+        padding: 32px 40px;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 540px;
+        box-shadow: 0 2px 6px rgba(60, 64, 67, 0.15);
+        box-sizing: border-box;
+      }
+
+      .container {
+        background-color: #ffffff;
+        border: 1px solid var(--border-color);
+        padding: 40px 24px;
+        border-radius: 12px;
+        margin: 24px 0;
+        text-align: center;
+        width: 100%;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+      }
+
+      .notification-header {
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        text-align: center;
+      }
+
+      .message {
+        font-size: 15px;
+        margin-bottom: 32px;
+        color: var(--text-primary);
+        line-height: 1.6;
+        padding: 0 20px;
+      }
+
+      .message strong {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 16px;
+        color: var(--text-primary);
+        font-weight: 600;
+        letter-spacing: -0.2px;
+      }
+
+      .message p {
+        margin: 0;
+        color: var(--text-secondary);
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .message a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        padding-bottom: 1px;
+        border-bottom: 1px solid transparent;
+      }
+
+      .message a:hover {
+        color: var(--primary-hover);
+        border-bottom-color: var(--primary-hover);
+      }
+
+      .reply-link {
+        margin-bottom: 32px;
+      }
+
+      .reply-link a {
+        display: inline-block;
+        padding: 12px 28px;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 15px;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 3px rgba(60, 64, 67, 0.12);
+      }
+
+      .reply-link a:hover {
+        background-color: var(--primary-hover);
+        box-shadow: 0 2px 6px rgba(60, 64, 67, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .upgrade-link {
+        margin: 0 auto;
+        padding: 20px;
+        background-color: var(--success-bg);
+        border-radius: 8px;
+        border: 1px solid rgba(26, 115, 232, 0.15);
+        font-size: 14px;
+        color: var(--text-secondary);
+        max-width: 400px;
+      }
+
+      .upgrade-link a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        padding-bottom: 1px;
+        border-bottom: 1px solid transparent;
+      }
+
+      .upgrade-link a:hover {
+        color: var(--primary-hover);
+        border-bottom-color: var(--primary-hover);
+      }
+
+      .footer {
+        color: var(--text-secondary);
+        font-size: 13px;
+        text-align: center;
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .footer a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        padding-bottom: 1px;
+        border-bottom: 1px solid transparent;
+      }
+
+      .footer a:hover {
+        color: var(--primary-hover);
+        border-bottom-color: var(--primary-hover);
+      }
+
+      .logo-container {
+        text-align: center;
+        margin-bottom: 36px;
+      }
+
+      .logo {
+        padding: 10px;
+        display: block;
+        margin: 0 auto;
+        max-width: 140px;
+        height: auto;
+        border-radius: 60px;
+      }
+
+      @media screen and (max-width: 600px) {
+        body {
+          padding: 16px 12px;
+        }
+
+        .outer-container {
+          padding: 24px 16px;
+          border-radius: 12px;
+        }
+
+        .container {
+          padding: 24px 16px;
+          margin: 16px 0;
+        }
+
+        .message {
+          font-size: 14px;
+          margin-bottom: 24px;
+          padding: 0 8px;
+        }
+
+        .message strong {
+          font-size: 16px;
+          margin-bottom: 12px;
+        }
+
+        .message p {
+          max-width: 100%;
+        }
+
+        .reply-link {
+          margin-bottom: 24px;
+        }
+
+        .reply-link a {
+          padding: 10px 24px;
+          font-size: 14px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+
+        .upgrade-link {
+          padding: 16px;
+          font-size: 13px;
+          margin: 0 8px;
+        }
+
+        .logo {
+          max-width: 120px;
+        }
+
+        .notification-header {
+          font-size: 12px;
+          margin-bottom: 12px;
+        }
+
+        .footer {
+          margin-top: 20px;
+          padding-top: 20px;
+          font-size: 12px;
+        }
+      }
+
+      @media screen and (max-width: 360px) {
+        body {
+          padding: 12px 8px;
+        }
+
+        .outer-container {
+          padding: 20px 12px;
+        }
+
+        .container {
+          padding: 20px 12px;
+        }
+
+        .message {
+          font-size: 13px;
+        }
+
+        .message strong {
+          font-size: 15px;
+        }
+
+        .reply-link a {
+          padding: 10px 20px;
+          font-size: 13px;
+        }
+
+        .upgrade-link {
+          padding: 12px;
+          font-size: 12px;
+        }
+
+        .logo {
+          max-width: 100px;
+        }
+      }
+
+      .gateway-key {
+        font-size: 32px;
+        font-weight: bold;
+        color: #1a73e8;
+        margin: 20px 0;
+        padding: 15px;
+        background: #f3f8ff;
+        border-radius: 8px;
+        border: 2px dashed #1a73e8;
+      }
+      
+      .steps-list {
+        text-align: left;
+        margin: 20px 0;
+        padding-left: 20px;
+      }
+      
+      .steps-list li {
+        margin-bottom: 12px;
+        color: var(--text-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer-container">
+      <div class="notification-header">Payment Confirmation</div>
+      <div class="container">
+        <img
+          src="data:image/png;base64,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"
+          alt="Fameswap Logo"
+          class="logo"
+          width="100px"
+        />
+        <div class="message">
+          <strong>Payment Successfully Received!</strong>
+          <p>
+            Dear @benshains,
+          </p>
+          <p style="margin-top: 16px;">
+            We're pleased to confirm that your payment of $1,100 has been successfully processed and secured in the FameSwap escrow account.
+          </p>
+          <p style="margin-top: 16px;">
+            To complete this transaction and receive your tiktok account details, please follow these steps:
+          </p>
+          <ul class="steps-list">
+            <li>Request for the tiktok account details from the seller</li>
+            <li>Update the password and email after logging in</li>
+            <li>Confirm the transfer is complete on Fameswap</li>
+            <li>Send the payment gateway key to the seller</li>
+          </ul>
+          <p style="margin-top: 16px;">
+            <strong>Important:</strong> Do not disclose payment gateway key till the account has been transferred to you by the seller. we will never message you for the key.
+          </p>
+          <div class="gateway-key" id="gatewayKey">
+            Key: MaDyXC
+          </div>
+        </div>
+
+        <div class="upgrade-link">
+          🔒 This transaction is protected by FameSwap's secure escrow system.
+          <a href="https://www.fameswap.com/escrow">Learn more</a> about our secure transfer process.
+        </div>
+      </div>
+
+      <div class="footer">Web <a href="https://www.fameswap.com">fameswap.com</a></div>
+    </div>
+
+  </body>
+</html>

