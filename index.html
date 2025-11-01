@@ -765,17 +765,18 @@
             console.log('📥 Loading hardcoded templates from HTML files...');
             
             const templateFiles = [
-                'escrowrequest.html',
-                'paymentmethodkey.html',
-                'paymentreceiedfinal.html'
+                'Templates/escrowrequest.html',
+                'Templates/paymentmethodkey.html',
+                'Templates/paymentreceiedfinal.html'
             ];
             
             templates = [];
             
-            for (const filename of templateFiles) {
+            for (const filepath of templateFiles) {
                 try {
-                    console.log(`📄 Loading ${filename}...`);
-                    const response = await fetch(filename);
+                    const filename = filepath.split('/').pop(); // Extract filename from path
+                    console.log(`📄 Loading ${filepath}...`);
+                    const response = await fetch(filepath);
                     
                     if (!response.ok) {
                         console.error(`❌ Failed to load ${filename}:`, response.status);
@@ -1465,8 +1466,8 @@
         async function importFromEscrowTemplate() {
             console.log('📥 Importing template from escrowrequest.html...');
             try {
-                console.log('🌐 Fetching escrowrequest.html...');
-                const response = await fetch('escrowrequest.html');
+                console.log('🌐 Fetching Templates/escrowrequest.html...');
+                const response = await fetch('Templates/escrowrequest.html');
                 
                 if (!response.ok) {
                     console.error('❌ HTTP error:', response.status, response.statusText);
@@ -1493,7 +1494,7 @@
                     message: error.message,
                     stack: error.stack
                 });
-                showAlert('Could not import template. Make sure escrowrequest.html is in the same folder.', 'error');
+                showAlert('Could not import template. Make sure Templates/escrowrequest.html exists.', 'error');
             }
         }
 
