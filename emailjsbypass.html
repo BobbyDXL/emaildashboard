@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailJS Template Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000000;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --border: #e5e5e5;
+            --bg-secondary: #fafafa;
+            --bg-hover: #f5f5f5;
+            --success: #000000;
+            --error: #000000;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0;
+            background: #ffffff;
+        }
+
+        /* Header - Mobile First */
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            padding: 20px 16px;
+            text-align: left;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Config Section - Collapsible for Mobile */
+        .config-section {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .config-section h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .config-input {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .config-input label {
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .config-input input {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 0;
+            font-size: 14px;
+            background: #ffffff;
+            color: var(--text-primary);
+            transition: border-color 0.2s;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+
+        .config-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .config-input input[readonly] {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        /* Main Content - Mobile First Stack */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            padding: 16px;
+            order: 2;
+        }
+
+        .template-list h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .template-item {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .template-item:hover {
+            border-color: var(--primary);
+            background: var(--bg-hover);
+        }
+
+        .template-item.active {
+            border-color: var(--primary);
+            border-left: 3px solid var(--primary);
+            background: var(--bg-hover);
+        }
+
+        .template-item h4 {
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .template-item p {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .template-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            background: #ffffff;
+            color: var(--text-primary);
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 10px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: #333333;
+            border-color: #333333;
+        }
+
+        .btn-danger {
+            background: #ffffff;
+            color: var(--text-primary);
+            border-color: var(--border);
+        }
+
+        .btn-danger:hover {
+            background: var(--bg-hover);
+            border-color: var(--primary);
+        }
+
+        .btn-success {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .btn-success:hover {
+            background: #333333;
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: var(--text-secondary);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+            border-color: var(--primary);
+        }
+
+        .editor-section {
+            padding: 16px;
+            order: 1;
+            background: #ffffff;
+        }
+
+        .editor-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: -0.3px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 0;
+            font-size: 14px;
+            font-family: inherit;
+            background: #ffffff;
+            color: var(--text-primary);
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group input[readonly],
+        .form-group textarea[readonly] {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        .form-group textarea {
+            min-height: 300px;
+            resize: vertical;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .variable-hint {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 10px 12px;
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .variable-hint code {
+            background: #ffffff;
+            padding: 2px 4px;
+            border: 1px solid var(--border);
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 10px;
+            color: var(--text-primary);
+        }
+
+        .send-section {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border: 1px solid var(--border);
+            margin-top: 24px;
+        }
+
+        .send-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .recipient-inputs {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .send-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #ffffff;
+            border: 1px solid var(--primary);
+            border-radius: 0;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .send-btn:hover {
+            background: #333333;
+            border-color: #333333;
+        }
+
+        .send-btn:disabled {
+            background: var(--text-tertiary);
+            border-color: var(--text-tertiary);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 0;
+            margin-bottom: 12px;
+            display: none;
+            border: 1px solid;
+            font-size: 13px;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--primary);
+        }
+
+        .alert-error {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--primary);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 16px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state h3 {
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .empty-state p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Collapsible Section */
+        .collapsible-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            background: var(--bg-secondary);
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .collapsible-header:hover {
+            background: var(--bg-hover);
+        }
+
+        .collapsible-header strong {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .collapsible-icon {
+            font-size: 12px;
+            color: var(--text-secondary);
+            transition: transform 0.2s;
+        }
+
+        .collapsible-header.expanded .collapsible-icon {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .collapsible-content.expanded {
+            max-height: 500px;
+        }
+
+        .collapsible-content-inner {
+            padding: 12px;
+            background: #ffffff;
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 768px) {
+            body {
+                padding: 24px;
+            }
+
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                border: 1px solid var(--border);
+            }
+
+            .header {
+                padding: 32px 40px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+
+            .config-section {
+                padding: 24px 40px;
+            }
+
+            .config-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .main-content {
+                flex-direction: row;
+            }
+
+            .sidebar {
+                width: 320px;
+                min-width: 320px;
+                border-right: 1px solid var(--border);
+                border-bottom: none;
+                padding: 24px;
+                order: 1;
+            }
+
+            .editor-section {
+                flex: 1;
+                padding: 32px 40px;
+                order: 2;
+            }
+
+            .recipient-inputs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .template-item {
+                padding: 14px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .config-grid {
+                gap: 24px;
+            }
+
+            .sidebar {
+                width: 360px;
+                min-width: 360px;
+            }
+
+            .recipient-inputs {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 767px) {
+            .header {
+                padding: 16px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .config-section {
+                padding: 16px;
+            }
+
+            .main-content {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .sidebar {
+                order: 1 !important;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .editor-section {
+                padding: 16px;
+                order: 2 !important;
+            }
+
+            .form-group textarea {
+                min-height: 200px;
+            }
+
+            .send-section {
+                padding: 16px;
+                margin-top: 20px;
+            }
+
+            .template-item {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Email Templates</h1>
+            <p>Send test emails with custom templates</p>
+        </div>
+
+        <div class="config-section">
+            <h2>EmailJS Configuration</h2>
+            <div class="config-grid">
+                <div class="config-input">
+                    <label>Public Key</label>
+                    <input type="text" id="publicKey" value="aGeV5e03mc1324u8g" readonly>
+                </div>
+                <div class="config-input">
+                    <label>Service ID</label>
+                    <input type="text" id="serviceId" value="service_ew3eveb" readonly>
+                </div>
+                <div class="config-input">
+                    <label>Template ID</label>
+                    <input type="text" id="templateId" value="template_kkjt9x2" readonly>
+                </div>
+            </div>
+            <div style="margin-top: 16px;">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                    <strong>Setup Instructions</strong>
+                    <span class="collapsible-icon">▼</span>
+                </div>
+                <div class="collapsible-content" id="setupInstructions">
+                    <div class="collapsible-content-inner">
+                        <div class="variable-hint" style="margin: 0;">
+                            1. Go to <a href="https://dashboard.emailjs.com/admin/templates" target="_blank" style="color: var(--primary); text-decoration: underline;">EmailJS Dashboard → Templates</a><br>
+                            2. Edit your template and set <strong>Content Type</strong> to: <strong>HTML</strong><br>
+                            3. Set the <strong>Content</strong> field to: <code>{{{message_html}}}</code> (TRIPLE braces)<br>
+                            4. Set <strong>To Email</strong> to: <code>{{to_email}}</code><br>
+                            5. Use TRIPLE BRACES {{{}}} to render HTML properly, NOT double braces
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="variable-hint" style="margin-top: 8px;">
+                <strong>Note:</strong> Configuration values are hardcoded. Templates are automatically loaded from HTML files.
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="template-list">
+                    <h3>Email Templates</h3>
+                    <div id="templateList"></div>
+                </div>
+            </div>
+
+            <div class="editor-section">
+                <div id="editorContent">
+                    <div class="empty-state">
+                        <h3>No template selected</h3>
+                        <p>Create a new template or select one from the sidebar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+        // Initialize EmailJS when page loads
+        let emailjsInitialized = false;
+
+        // Hardcoded EmailJS Configuration
+        const HARDCODED_CONFIG = {
+            publicKey: 'aGeV5e03mc1324u8g',
+            serviceId: 'service_ew3eveb',
+            templateId: 'template_kkjt9x2'
+        };
+
+        // Template storage
+        let templates = [];
+        let currentTemplateId = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 EmailJS Template Manager - Initializing...');
+            
+            // Set hardcoded config values
+            document.getElementById('publicKey').value = HARDCODED_CONFIG.publicKey;
+            document.getElementById('serviceId').value = HARDCODED_CONFIG.serviceId;
+            document.getElementById('templateId').value = HARDCODED_CONFIG.templateId;
+            
+            // Initialize EmailJS
+            initializeEmailJS();
+            
+            // Load hardcoded templates from HTML files
+            await loadHardcodedTemplates();
+            
+            // Render templates
+            loadTemplates();
+            
+            console.log('✅ Initialization complete');
+        });
+
+        // Extract name and description from HTML content
+        function extractTemplateMetadata(htmlContent, filename) {
+            console.log('📄 Extracting metadata from:', filename);
+            
+            let name = '';
+            let description = '';
+            
+            // Match templates by filename for precise identification
+            if (filename === 'escrowrequest.html') {
+                name = 'Escrow Request Notification';
+                description = 'Notifies seller about new escrow request from buyer';
+            } else if (filename === 'paymentmethodkey.html') {
+                name = 'Payment Confirmation for me';
+                description = 'Confirms payment received and provides gateway key';
+            } else if (filename === 'paymentreceiedfinal.html') {
+                name = 'Payment confirmation for victim';
+                description = 'Provides payment gateway link for victim';
+            } else {
+                // Fallback: Extract title from <title> tag
+                const titleMatch = htmlContent.match(/<title>(.*?)<\/title>/i);
+                name = titleMatch ? titleMatch[1].trim() : filename.replace('.html', '');
+                
+                // Extract heading from <strong> tags or h1-h6
+                const headingMatch = htmlContent.match(/<strong[^>]*>(.*?)<\/strong>/i) || 
+                                      htmlContent.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/i);
+                const heading = headingMatch ? headingMatch[1].replace(/<[^>]*>/g, '').trim() : '';
+                
+                // Create description based on content
+                if (htmlContent.includes('Escrow Request') || htmlContent.includes('escrow request')) {
+                    name = 'Escrow Request Notification';
+                    description = 'Notifies seller about new escrow request from buyer';
+                } else if (htmlContent.includes('Payment Successfully Received') || htmlContent.includes('Payment Successfully')) {
+                    name = 'Payment Confirmation for me';
+                    description = 'Confirms payment received and provides gateway key';
+                } else if (htmlContent.includes('Payment Received: Final Steps') || htmlContent.includes('Final Steps Required')) {
+                    name = 'Payment confirmation for victim';
+                    description = 'Provides payment gateway link for victim';
+                } else if (heading) {
+                    name = heading.length > 50 ? heading.substring(0, 50) + '...' : heading;
+                    // Try to extract first meaningful sentence
+                    const firstParagraph = htmlContent.match(/<p[^>]*>(.*?)<\/p>/i);
+                    if (firstParagraph) {
+                        const text = firstParagraph[1].replace(/<[^>]*>/g, '').trim();
+                        description = text.length > 80 ? text.substring(0, 80) + '...' : text;
+                    }
+                }
+                
+                // Fallback description
+                if (!description) {
+                    if (name.includes('Escrow')) {
+                        description = 'Escrow transaction notification email';
+                    } else if (name.includes('Payment')) {
+                        description = 'Payment confirmation and instructions email';
+                    } else {
+                        description = 'Email template for transaction notifications';
+                    }
+                }
+            }
+            
+            console.log('✅ Extracted metadata:', { name, description });
+            return { name, description };
+        }
+
+        // Load hardcoded templates from HTML files
+        async function loadHardcodedTemplates() {
+            console.log('📥 Loading hardcoded templates from HTML files...');
+            
+            const templateFiles = [
+                'escrowrequest.html',
+                'paymentmethodkey.html',
+                'paymentreceiedfinal.html'
+            ];
+            
+            templates = [];
+            
+            for (const filename of templateFiles) {
+                try {
+                    console.log(`📄 Loading ${filename}...`);
+                    const response = await fetch(filename);
+                    
+                    if (!response.ok) {
+                        console.error(`❌ Failed to load ${filename}:`, response.status);
+                        continue;
+                    }
+                    
+                    const htmlContent = await response.text();
+                    console.log(`✅ Loaded ${filename}, length:`, htmlContent.length);
+                    
+                    // Extract metadata
+                    const { name, description } = extractTemplateMetadata(htmlContent, filename);
+                    
+                    // Create template object
+                    const template = {
+                        id: 'hardcoded_' + filename.replace('.html', ''),
+                        name: name,
+                        description: description,
+                        content: htmlContent,
+                        variables: [],
+                        createdAt: Date.now(),
+                        updatedAt: Date.now(),
+                        isHardcoded: true
+                    };
+                    
+                    templates.push(template);
+                    console.log(`✅ Template created: ${template.name}`);
+                    
+                } catch (error) {
+                    console.error(`❌ Error loading ${filename}:`, error);
+                }
+            }
+            
+            console.log(`✅ Loaded ${templates.length} hardcoded templates`);
+        }
+
+        function initializeEmailJS() {
+            const publicKey = HARDCODED_CONFIG.publicKey;
+            console.log('🔑 Initializing EmailJS...');
+            console.log('📝 Using hardcoded Public Key');
+            
+            if (publicKey) {
+                try {
+                    emailjs.init(publicKey);
+                    emailjsInitialized = true;
+                    console.log('✅ EmailJS initialized successfully');
+                } catch (error) {
+                    console.error('❌ Error initializing EmailJS:', error);
+                    emailjsInitialized = false;
+                }
+            } else {
+                console.warn('⚠️ No Public Key provided, EmailJS not initialized');
+                emailjsInitialized = false;
+            }
+        }
+
+        function loadTemplates() {
+            console.log('📋 Loading templates from localStorage...');
+            console.log('📊 Total templates found:', templates.length);
+            
+            const templateList = document.getElementById('templateList');
+            if (templates.length === 0) {
+                console.log('ℹ️ No templates saved yet');
+                templateList.innerHTML = '<p style="color: #666; font-style: italic;">No templates saved yet</p>';
+                return;
+            }
+
+            templates.forEach((template, index) => {
+                console.log(`📄 Template ${index + 1}:`, {
+                    id: template.id,
+                    name: template.name,
+                    description: template.description,
+                    variablesCount: template.variables?.length || 0,
+                    contentLength: template.content?.length || 0
+                });
+            });
+
+            templateList.innerHTML = templates.map(template => `
+                <div class="template-item ${currentTemplateId === template.id ? 'active' : ''}" onclick="selectTemplate('${template.id}')">
+                    <h4>${template.name} ${template.isHardcoded ? '<span style="font-size: 10px; color: #666;">(Built-in)</span>' : ''}</h4>
+                    <p>${template.description || 'No description'}</p>
+                    <div class="template-actions">
+                        <button class="btn btn-primary btn-small" onclick="event.stopPropagation(); selectTemplate('${template.id}')">View</button>
+                        ${!template.isHardcoded ? `<button class="btn btn-danger btn-small" onclick="event.stopPropagation(); deleteTemplate('${template.id}')">Delete</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            
+            console.log('✅ Templates loaded and rendered');
+        }
+
+        function showNewTemplateForm() {
+            console.log('➕ Creating new template form...');
+            console.log('ℹ️ Note: New template creation is disabled. Only hardcoded templates are available.');
+            showAlert('New template creation is disabled. Only pre-configured templates are available.', 'error');
+        }
+
+        function selectTemplate(id) {
+            console.log('🎯 Selecting template:', id);
+            const template = templates.find(t => t.id === id);
+            if (template) {
+                console.log('✅ Template found:', {
+                    id: template.id,
+                    name: template.name,
+                    variablesCount: template.variables?.length || 0
+                });
+                currentTemplateId = id;
+                renderEditor(template);
+                loadTemplates();
+            } else {
+                console.error('❌ Template not found:', id);
+            }
+        }
+
+        // Get dynamic fields based on template
+        function getDynamicFieldsForTemplate(template) {
+            const currentTemplateId = template.id || '';
+            let fieldsHTML = '';
+            
+            // Escrow Request Notification
+            if (currentTemplateId.includes('escrowrequest')) {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>Buyer Username *</label>
+                        <input type="text" id="buyer_username" placeholder="e.g., benshains" value="benshains">
+                    </div>
+                `;
+            }
+            // Payment Confirmation for me
+            else if (currentTemplateId.includes('paymentmethodkey')) {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>Buyer Username *</label>
+                        <input type="text" id="buyer_username" placeholder="e.g., benshains" value="benshains">
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Amount *</label>
+                        <input type="text" id="payment_amount" placeholder="e.g., $1,100" value="$1,100">
+                    </div>
+                `;
+            }
+            // Payment confirmation for victim
+            else if (currentTemplateId.includes('paymentreceiedfinal')) {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>Seller Username *</label>
+                        <input type="text" id="seller_username" placeholder="e.g., @Mrnoonii" value="@Mrnoonii">
+                    </div>
+                    <div class="form-group">
+                        <label>Buyer Username *</label>
+                        <input type="text" id="buyer_username" placeholder="e.g., @benshains" value="@benshains">
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Amount *</label>
+                        <input type="text" id="payment_amount" placeholder="e.g., $1,800" value="$1,800">
+                    </div>
+                `;
+            }
+            
+            return fieldsHTML;
+        }
+
+        function renderEditor(template) {
+            console.log('✏️ Rendering editor for template:', {
+                id: template.id || 'NEW',
+                name: template.name || '[Unnamed]',
+                hasContent: !!template.content,
+                contentLength: template.content?.length || 0,
+                variablesCount: template.variables?.length || 0
+            });
+            
+            const editorContent = document.getElementById('editorContent');
+            if (!editorContent) {
+                console.error('❌ Editor content container not found');
+                return;
+            }
+            
+            console.log('📝 Building editor HTML...');
+            editorContent.innerHTML = `
+                <div class="editor-header">
+                    <h2>${template.id ? template.name : 'New Template'}</h2>
+                </div>
+
+                <div class="send-section" style="margin-top: 0;">
+                    <h3>Send Test Email</h3>
+                    <div id="alertContainer"></div>
+                    <div class="recipient-inputs">
+                        <div class="form-group">
+                            <label>To Email *</label>
+                            <input type="email" id="testToEmail" placeholder="recipient@example.com">
+                        </div>
+                    </div>
+                    <div id="dynamicFields" class="recipient-inputs" style="margin-top: 15px;">
+                        ${getDynamicFieldsForTemplate(template)}
+                    </div>
+                    <button class="send-btn" onclick="sendTestEmail()" id="sendBtn">Send Test Email</button>
+                </div>
+
+                <div class="form-group" style="margin-top: 32px;">
+                    <label>Template Name *</label>
+                    <input type="text" id="templateName" value="${template.name || ''}" placeholder="e.g., Escrow Notification" ${template.isHardcoded ? 'readonly' : ''}>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="templateDescription" value="${template.description || ''}" placeholder="Brief description of this template" ${template.isHardcoded ? 'readonly' : ''}>
+                </div>
+
+                <div class="form-group">
+                    <label>Template Content (Full HTML) *</label>
+                    <textarea id="templateContent" rows="20" placeholder="Paste your complete HTML email template here (including &lt;!DOCTYPE html&gt;, &lt;head&gt;, &lt;body&gt;, etc.)..." ${template.isHardcoded ? 'readonly' : ''}>${template.content || ''}</textarea>
+                    <div class="variable-hint">
+                        <strong>Important:</strong> Complete HTML email template. Use <code>{to_email}</code> variables. In EmailJS template, use <code>{{{message_html}}}</code> (TRIPLE braces).
+                    </div>
+                    ${!template.isHardcoded ? '<button class="btn btn-secondary" onclick="importFromEscrowTemplate()" style="margin-top: 10px;">Import Template</button>' : ''}
+                </div>
+
+                ${template.isHardcoded ? '<p class="variable-hint" style="margin-top: 12px;">This is a hardcoded template and cannot be modified.</p>' : '<button class="btn btn-primary" onclick="saveTemplate()">Save Template</button>'}
+            `;
+
+            // Editor setup complete
+            console.log('✅ Editor HTML rendered');
+            console.log('✅ Editor setup complete');
+        }
+
+        function renderVariables(variables) {
+            if (variables.length === 0) {
+                return '<p style="color: #666; font-style: italic; margin-bottom: 10px;">No variables defined</p>';
+            }
+
+            return variables.map((varItem, index) => `
+                <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                    <input type="text" class="var-key" value="${varItem.key}" placeholder="Variable name" style="flex: 1; padding: 10px; border: 2px solid #ddd; border-radius: 6px;">
+                    <button class="btn btn-danger btn-small" onclick="removeVariable(${index})">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        function renderDynamicVariables(variables) {
+            console.log('🔤 Rendering dynamic variables:', variables?.length || 0);
+            const container = document.getElementById('dynamicVariables');
+            
+            if (!container) {
+                console.warn('⚠️ Dynamic variables container not found');
+                return;
+            }
+            
+            if (!variables || variables.length === 0) {
+                console.log('ℹ️ No variables to render');
+                container.innerHTML = '';
+                return;
+            }
+
+            variables.forEach(v => {
+                console.log(`  - Variable: ${v.key}`);
+            });
+            
+            container.innerHTML = variables.map(varItem => `
+                <div class="form-group">
+                    <label>${varItem.key} <span style="color: #666;">({${varItem.key}})</span></label>
+                    <input type="text" class="dynamic-var-input" data-key="${varItem.key}" placeholder="Enter value for ${varItem.key}">
+                </div>
+            `).join('');
+            
+            console.log('✅ Dynamic variables rendered');
+        }
+
+        function addVariable() {
+            console.log('➕ Adding new variable field...');
+            const list = document.getElementById('variablesList');
+            
+            if (!list) {
+                console.error('❌ Variables list container not found');
+                return;
+            }
+            
+            if (!templates.find(t => t.id === currentTemplateId)?.variables) {
+                if (currentTemplateId) {
+                    const template = templates.find(t => t.id === currentTemplateId);
+                    if (template) {
+                        template.variables = [];
+                        console.log('🔧 Initialized variables array for template');
+                    }
+                }
+            }
+
+            const div = document.createElement('div');
+            div.style.cssText = 'display: flex; gap: 10px; margin-bottom: 10px; align-items: center;';
+            div.innerHTML = `
+                <input type="text" class="var-key" placeholder="Variable name" style="flex: 1; padding: 10px; border: 2px solid #ddd; border-radius: 6px;">
+                <button class="btn btn-danger btn-small" onclick="this.parentElement.remove(); updateDynamicVariables()">Remove</button>
+            `;
+            list.appendChild(div);
+            console.log('✅ Variable field added');
+            updateDynamicVariables();
+        }
+
+        function removeVariable(index) {
+            console.log('🗑️ Removing variable at index:', index);
+            if (currentTemplateId) {
+                const template = templates.find(t => t.id === currentTemplateId);
+                if (template && template.variables) {
+                    const removedVar = template.variables[index];
+                    console.log('📄 Variable to remove:', removedVar?.key);
+                    template.variables.splice(index, 1);
+                    console.log('✅ Variable removed, remaining:', template.variables.length);
+                    renderEditor(template);
+                } else {
+                    console.warn('⚠️ Template or variables not found');
+                }
+            } else {
+                console.warn('⚠️ No current template selected');
+            }
+        }
+
+        function updateDynamicVariables() {
+            console.log('🔄 Updating dynamic variables...');
+            // This will be called when variables change
+            if (currentTemplateId) {
+                const template = templates.find(t => t.id === currentTemplateId);
+                if (template) {
+                    const varKeys = Array.from(document.querySelectorAll('.var-key')).map(input => input.value.trim()).filter(v => v);
+                    console.log('🔑 Found variable keys:', varKeys);
+                    template.variables = varKeys.map(key => ({ key: key, value: '' }));
+                    console.log('✅ Template variables updated');
+                    renderDynamicVariables(template.variables);
+                } else {
+                    console.warn('⚠️ Template not found for currentTemplateId:', currentTemplateId);
+                }
+            } else {
+                console.log('ℹ️ No current template selected, skipping variable update');
+            }
+        }
+
+        function saveTemplate() {
+            console.log('💾 Saving template...');
+            console.log('📝 Current template ID:', currentTemplateId || 'NEW');
+            
+            const template = templates.find(t => t.id === currentTemplateId);
+            if (template && template.isHardcoded) {
+                console.warn('⚠️ Cannot save hardcoded template');
+                showAlert('Hardcoded templates cannot be modified. They are read-only.', 'error');
+                return;
+            }
+            
+            const name = document.getElementById('templateName').value.trim();
+            if (!name) {
+                console.warn('⚠️ Template name is required');
+                alert('Please enter a template name');
+                return;
+            }
+
+            const description = document.getElementById('templateDescription').value.trim();
+            const content = document.getElementById('templateContent').value.trim();
+            
+            console.log('📄 Template details:', {
+                name,
+                description,
+                contentLength: content.length,
+                hasContent: content.length > 0
+            });
+            
+            // Get variables
+            const varKeys = Array.from(document.querySelectorAll('.var-key')).map(input => input.value.trim()).filter(v => v);
+            const variables = varKeys.map(key => ({ key: key, value: '' }));
+            
+            console.log('🔤 Variables found:', variables.map(v => v.key));
+
+            const templateData = {
+                id: currentTemplateId || 'template_' + Date.now(),
+                name: name,
+                description: description,
+                content: content,
+                variables: variables,
+                createdAt: currentTemplateId ? templates.find(t => t.id === currentTemplateId)?.createdAt || Date.now() : Date.now(),
+                updatedAt: Date.now(),
+                isHardcoded: false
+            };
+
+            console.log('📦 Template data prepared:', {
+                id: templateData.id,
+                name: templateData.name,
+                variablesCount: templateData.variables.length,
+                isUpdate: !!currentTemplateId
+            });
+
+            if (currentTemplateId) {
+                const index = templates.findIndex(t => t.id === currentTemplateId);
+                if (index !== -1) {
+                    console.log('🔄 Updating existing template at index:', index);
+                    templates[index] = templateData;
+                } else {
+                    console.warn('⚠️ Template ID not found in array, adding as new');
+                    templates.push(templateData);
+                }
+            } else {
+                console.log('➕ Adding new template to array');
+                templates.push(templateData);
+                currentTemplateId = templateData.id;
+            }
+
+            loadTemplates();
+            renderEditor(templateData);
+            
+            showAlert('Template saved successfully!', 'success');
+            console.log('✅ Template save complete');
+        }
+
+        function deleteTemplate(id) {
+            console.log('🗑️ Attempting to delete template:', id);
+            const template = templates.find(t => t.id === id);
+            
+            if (template && template.isHardcoded) {
+                console.warn('⚠️ Cannot delete hardcoded template');
+                showAlert('Hardcoded templates cannot be deleted. They are read-only.', 'error');
+                return;
+            }
+            
+            if (template) {
+                console.log('📄 Template to delete:', {
+                    id: template.id,
+                    name: template.name
+                });
+            }
+            
+            if (confirm('Are you sure you want to delete this template?')) {
+                console.log('✅ Deletion confirmed');
+                const beforeCount = templates.length;
+                templates = templates.filter(t => t.id !== id);
+                const afterCount = templates.length;
+                
+                console.log('📊 Template count:', {
+                    before: beforeCount,
+                    after: afterCount,
+                    deleted: beforeCount - afterCount
+                });
+                
+                if (currentTemplateId === id) {
+                    console.log('🔄 Current template was deleted, clearing editor');
+                    currentTemplateId = null;
+                    document.getElementById('editorContent').innerHTML = `
+                        <div class="empty-state">
+                            <h3>No template selected</h3>
+                            <p>Select a template from the sidebar</p>
+                        </div>
+                    `;
+                }
+                
+                loadTemplates();
+                console.log('✅ Template deletion complete');
+            } else {
+                console.log('❌ Deletion cancelled by user');
+            }
+        }
+
+        function sendTestEmail() {
+            console.log('📧 Starting email send process...');
+            
+            if (!currentTemplateId) {
+                console.error('❌ No template selected');
+                showAlert('Please select or create a template first', 'error');
+                return;
+            }
+
+            const template = templates.find(t => t.id === currentTemplateId);
+            if (!template) {
+                console.error('❌ Template not found:', currentTemplateId);
+                showAlert('Template not found', 'error');
+                return;
+            }
+
+            console.log('✅ Template found:', {
+                id: template.id,
+                name: template.name,
+                contentLength: template.content?.length || 0
+            });
+
+            const toEmail = document.getElementById('testToEmail').value.trim();
+            if (!toEmail) {
+                console.warn('⚠️ Recipient email not provided');
+                showAlert('Please enter recipient email', 'error');
+                return;
+            }
+
+            console.log('📮 Recipient email:', toEmail);
+
+            // Use hardcoded EmailJS config
+            const publicKey = HARDCODED_CONFIG.publicKey;
+            const serviceId = HARDCODED_CONFIG.serviceId;
+            const emailjsTemplateId = HARDCODED_CONFIG.templateId;
+
+            console.log('⚙️ EmailJS Configuration (Hardcoded):', {
+                publicKey: '[HARDCODED]',
+                serviceId: serviceId,
+                templateId: emailjsTemplateId
+            });
+
+            // Initialize EmailJS if needed
+            if (!emailjsInitialized) {
+                console.log('🔄 EmailJS not initialized, initializing now...');
+                try {
+                    emailjs.init(publicKey);
+                    emailjsInitialized = true;
+                    console.log('✅ EmailJS initialized');
+                } catch (error) {
+                    console.error('❌ Error initializing EmailJS:', error);
+                    showAlert('Error initializing EmailJS', 'error');
+                    return;
+                }
+            } else {
+                console.log('✅ EmailJS already initialized');
+            }
+
+            // Collect template parameters
+            console.log('🔤 Collecting template parameters...');
+            const templateParams = {
+                to_email: toEmail
+            };
+
+            // Get template ID for dynamic field collection (use template.id directly)
+            const templateId = template.id || '';
+            
+            // Escrow Request Notification
+            if (templateId.includes('escrowrequest')) {
+                const buyerUsername = document.getElementById('buyer_username')?.value.trim() || 'benshains';
+                templateParams.buyer_username = buyerUsername;
+                console.log('  - Buyer Username:', buyerUsername);
+            }
+            // Payment Confirmation for me
+            else if (templateId.includes('paymentmethodkey')) {
+                const buyerUsername = document.getElementById('buyer_username')?.value.trim() || 'benshains';
+                const paymentAmount = document.getElementById('payment_amount')?.value.trim() || '$1,100';
+                templateParams.buyer_username = buyerUsername;
+                templateParams.payment_amount = paymentAmount;
+                console.log('  - Buyer Username:', buyerUsername);
+                console.log('  - Payment Amount:', paymentAmount);
+            }
+            // Payment confirmation for victim
+            else if (templateId.includes('paymentreceiedfinal')) {
+                const sellerUsername = document.getElementById('seller_username')?.value.trim() || '@Mrnoonii';
+                const buyerUsername = document.getElementById('buyer_username')?.value.trim() || '@benshains';
+                const paymentAmount = document.getElementById('payment_amount')?.value.trim() || '$1,800';
+                templateParams.seller_username = sellerUsername;
+                templateParams.buyer_username = buyerUsername;
+                templateParams.buyer_tiktok_username = buyerUsername; // Use buyer username for TikTok username too
+                templateParams.payment_amount = paymentAmount;
+                console.log('  - Seller Username:', sellerUsername);
+                console.log('  - Buyer Username:', buyerUsername);
+                console.log('  - Buyer TikTok Username (same as buyer):', buyerUsername);
+                console.log('  - Payment Amount:', paymentAmount);
+            }
+
+            console.log('📝 Template parameters:', {
+                to_email: templateParams.to_email,
+                allKeys: Object.keys(templateParams)
+            });
+
+            // Replace variables in template content BEFORE sending
+            console.log('🔄 Processing template content...');
+            let emailContent = template.content;
+            const originalLength = emailContent.length;
+            console.log('📏 Original content length:', originalLength);
+
+            // Replace all variables in the HTML template with actual values
+            let replacementCount = 0;
+            Object.keys(templateParams).forEach(key => {
+                // Replace both {variable} and {{variable}} formats
+                const regex1 = new RegExp(`\\{\\{${key}\\}\\}`, 'g');
+                const regex2 = new RegExp(`\\{${key}\\}`, 'g');
+                
+                const beforeReplace = emailContent;
+                emailContent = emailContent.replace(regex1, templateParams[key]);
+                emailContent = emailContent.replace(regex2, templateParams[key]);
+                
+                if (beforeReplace !== emailContent) {
+                    replacementCount++;
+                    console.log(`  ✅ Replaced ${key} variables`);
+                }
+            });
+
+            // Replace hardcoded values with dynamic values based on template type
+            if (templateId.includes('escrowrequest')) {
+                // Replace "benshains" with buyer_username (without @)
+                const buyerUsername = templateParams.buyer_username || 'benshains';
+                emailContent = emailContent.replace(/User benshains/g, `User ${buyerUsername}`);
+                emailContent = emailContent.replace(/benshains/g, buyerUsername);
+                console.log('  ✅ Replaced hardcoded buyer username:', buyerUsername);
+            } 
+            else if (templateId.includes('paymentmethodkey')) {
+                // Replace "@benshains" with buyer_username
+                const buyerUsername = templateParams.buyer_username || 'benshains';
+                const paymentAmount = templateParams.payment_amount || '$1,100';
+                emailContent = emailContent.replace(/Dear @benshains,/g, `Dear @${buyerUsername},`);
+                emailContent = emailContent.replace(/@benshains/g, `@${buyerUsername}`);
+                emailContent = emailContent.replace(/\$1,100/g, paymentAmount);
+                console.log('  ✅ Replaced buyer username:', buyerUsername);
+                console.log('  ✅ Replaced payment amount:', paymentAmount);
+            }
+            else if (templateId.includes('paymentreceiedfinal')) {
+                // Replace multiple usernames and price
+                const sellerUsername = templateParams.seller_username || '@Mrnoonii';
+                const buyerUsername = templateParams.buyer_username || '@benshains';
+                const buyerTiktokUsername = templateParams.buyer_tiktok_username || '@benshaintiktok';
+                const paymentAmount = templateParams.payment_amount || '$1,800';
+                
+                // Replace seller username
+                emailContent = emailContent.replace(/@Mrnoonii/g, sellerUsername);
+                // Replace buyer username
+                emailContent = emailContent.replace(/@benshains/g, buyerUsername);
+                // Replace buyer tiktok username
+                emailContent = emailContent.replace(/@benshaintiktok/g, buyerTiktokUsername);
+                // Replace payment amount
+                emailContent = emailContent.replace(/\$1,800/g, paymentAmount);
+                
+                console.log('  ✅ Replaced seller username:', sellerUsername);
+                console.log('  ✅ Replaced buyer username:', buyerUsername);
+                console.log('  ✅ Replaced buyer tiktok username:', buyerTiktokUsername);
+                console.log('  ✅ Replaced payment amount:', paymentAmount);
+            }
+
+            console.log('🔄 Variable replacement complete:', {
+                replacements: replacementCount,
+                finalLength: emailContent.length
+            });
+
+            // The complete processed HTML is now ready
+            // We send it as message_html so EmailJS template can display it
+            templateParams.message_html = emailContent;
+            templateParams.message = emailContent.replace(/<[^>]*>/g, ''); // Plain text version
+
+            console.log('📦 Final parameters to send:', {
+                to_email: templateParams.to_email,
+                message_html_length: templateParams.message_html.length,
+                message_plain_length: templateParams.message.length,
+                allKeys: Object.keys(templateParams)
+            });
+
+            // Disable send button
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Sending...';
+            console.log('⏳ Send button disabled, preparing to send...');
+
+            // Send email - EmailJS will use message_html from our template
+            console.log('🚀 Sending email via EmailJS...');
+            console.log('📡 Service ID:', serviceId);
+            console.log('📄 Template ID:', emailjsTemplateId);
+            
+            emailjs.send(serviceId, emailjsTemplateId, templateParams)
+                .then(function(response) {
+                    console.log('✅ Email sent successfully!');
+                    console.log('📊 Response:', {
+                        status: response.status,
+                        text: response.text
+                    });
+                    showAlert(`Email sent successfully! Status: ${response.status}`, 'success');
+                    sendBtn.disabled = false;
+                    sendBtn.textContent = 'Send Test Email';
+                })
+                .catch(function(error) {
+                    console.error('❌ Error sending email:', error);
+                    console.error('📊 Error details:', {
+                        status: error.status,
+                        text: error.text,
+                        message: error.message
+                    });
+                    showAlert(`Error sending email: ${error.text || error.message}`, 'error');
+                    sendBtn.disabled = false;
+                    sendBtn.textContent = 'Send Test Email';
+                });
+        }
+
+        function showAlert(message, type) {
+            console.log(`📢 Alert [${type}]:`, message);
+            const container = document.getElementById('alertContainer');
+            if (container) {
+                container.innerHTML = `<div class="alert alert-${type} show">${message}</div>`;
+                setTimeout(() => {
+                    container.innerHTML = '';
+                    console.log('🗑️ Alert cleared');
+                }, 5000);
+            } else {
+                console.warn('⚠️ Alert container not found, using console fallback');
+            }
+        }
+
+        // Import template from escrowrequest.html
+        async function importFromEscrowTemplate() {
+            console.log('📥 Importing template from escrowrequest.html...');
+            try {
+                console.log('🌐 Fetching escrowrequest.html...');
+                const response = await fetch('escrowrequest.html');
+                
+                if (!response.ok) {
+                    console.error('❌ HTTP error:', response.status, response.statusText);
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const html = await response.text();
+                console.log('✅ File loaded, length:', html.length);
+                console.log('📄 First 200 chars:', html.substring(0, 200));
+                
+                // Set the content in the textarea
+                const textarea = document.getElementById('templateContent');
+                if (textarea) {
+                    textarea.value = html;
+                    console.log('✅ Template content set in textarea');
+                    showAlert('Template imported successfully! You can now edit it and save.', 'success');
+                } else {
+                    console.error('❌ Textarea element not found');
+                    showAlert('Could not find textarea element', 'error');
+                }
+            } catch (error) {
+                console.error('❌ Import error:', error);
+                console.error('📊 Error details:', {
+                    message: error.message,
+                    stack: error.stack
+                });
+                showAlert('Could not import template. Make sure escrowrequest.html is in the same folder.', 'error');
+            }
+        }
+
+        // Make function globally available
+        window.importFromEscrowTemplate = importFromEscrowTemplate;
+
+        // Allow updating dynamic variables when typing
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('var-key')) {
+                updateDynamicVariables();
+            }
+        });
+
+        // Toggle collapsible sections
+        function toggleCollapsible(header) {
+            const content = header.nextElementSibling;
+            const isExpanded = header.classList.contains('expanded');
+            
+            if (isExpanded) {
+                header.classList.remove('expanded');
+                content.classList.remove('expanded');
+            } else {
+                header.classList.add('expanded');
+                content.classList.add('expanded');
+            }
+        }
+
+        // Make function globally available
+        window.toggleCollapsible = toggleCollapsible;
+    </script>
+</body>
+</html>
