@@ -19,33 +19,74 @@
             --border: #e5e5e5;
             --bg-secondary: #fafafa;
             --bg-hover: #f5f5f5;
+            --bg-primary: #ffffff;
             --success: #000000;
             --error: #000000;
         }
 
+        [data-theme="dark"] {
+            --primary: #ffffff;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --border: #333333;
+            --bg-secondary: #1a1a1a;
+            --bg-hover: #252525;
+            --bg-primary: #000000;
+            --success: #ffffff;
+            --error: #ffffff;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: #ffffff;
+            background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             padding: 0;
             margin: 0;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .container {
             max-width: 100%;
             margin: 0;
-            background: #ffffff;
+            background: var(--bg-primary);
         }
 
         /* Header - Mobile First */
         .header {
-            background: #ffffff;
+            background: var(--bg-primary);
             border-bottom: 1px solid var(--border);
             padding: 20px 16px;
             text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .dark-mode-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+            margin-left: 16px;
+        }
+
+        .dark-mode-toggle:hover {
+            background: var(--bg-hover);
+            border-color: var(--primary);
         }
 
         .header h1 {
@@ -103,7 +144,7 @@
             border: 1px solid var(--border);
             border-radius: 0;
             font-size: 14px;
-            background: #ffffff;
+            background: var(--bg-primary);
             color: var(--text-primary);
             transition: border-color 0.2s;
             font-family: 'Monaco', 'Menlo', monospace;
@@ -127,7 +168,7 @@
         }
 
         .sidebar {
-            background: #ffffff;
+            background: var(--bg-primary);
             border-bottom: 1px solid var(--border);
             padding: 16px;
             order: 2;
@@ -143,7 +184,7 @@
         }
 
         .template-item {
-            background: #ffffff;
+            background: var(--bg-primary);
             border: 1px solid var(--border);
             border-radius: 0;
             padding: 12px;
@@ -187,7 +228,7 @@
         .btn {
             padding: 6px 12px;
             border: 1px solid var(--border);
-            background: #ffffff;
+            background: var(--bg-primary);
             color: var(--text-primary);
             border-radius: 0;
             cursor: pointer;
@@ -205,17 +246,16 @@
 
         .btn-primary {
             background: var(--primary);
-            color: #ffffff;
+            color: var(--bg-primary);
             border-color: var(--primary);
         }
 
         .btn-primary:hover {
-            background: #333333;
-            border-color: #333333;
+            opacity: 0.8;
         }
 
         .btn-danger {
-            background: #ffffff;
+            background: var(--bg-primary);
             color: var(--text-primary);
             border-color: var(--border);
         }
@@ -227,16 +267,16 @@
 
         .btn-success {
             background: var(--primary);
-            color: #ffffff;
+            color: var(--bg-primary);
             border-color: var(--primary);
         }
 
         .btn-success:hover {
-            background: #333333;
+            opacity: 0.8;
         }
 
         .btn-secondary {
-            background: #ffffff;
+            background: var(--bg-primary);
             color: var(--text-secondary);
             border-color: var(--border);
         }
@@ -249,7 +289,7 @@
         .editor-section {
             padding: 16px;
             order: 1;
-            background: #ffffff;
+            background: var(--bg-primary);
         }
 
         .editor-header h2 {
@@ -282,7 +322,7 @@
             border-radius: 0;
             font-size: 14px;
             font-family: inherit;
-            background: #ffffff;
+            background: var(--bg-primary);
             color: var(--text-primary);
             transition: border-color 0.2s;
         }
@@ -320,7 +360,7 @@
         }
 
         .variable-hint code {
-            background: #ffffff;
+            background: var(--bg-primary);
             padding: 2px 4px;
             border: 1px solid var(--border);
             font-family: 'Monaco', 'Menlo', monospace;
@@ -355,7 +395,7 @@
             width: 100%;
             padding: 14px;
             background: var(--primary);
-            color: #ffffff;
+            color: var(--bg-primary);
             border: 1px solid var(--primary);
             border-radius: 0;
             font-size: 14px;
@@ -367,8 +407,7 @@
         }
 
         .send-btn:hover {
-            background: #333333;
-            border-color: #333333;
+            opacity: 0.8;
         }
 
         .send-btn:disabled {
@@ -471,7 +510,7 @@
 
         .collapsible-content-inner {
             padding: 12px;
-            background: #ffffff;
+            background: var(--bg-primary);
         }
 
         /* Desktop Styles */
@@ -554,6 +593,17 @@
         @media (max-width: 767px) {
             .header {
                 padding: 16px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-content {
+                width: 100%;
+            }
+
+            .dark-mode-toggle {
+                margin-left: 0;
+                margin-top: 12px;
             }
 
             .header h1 {
@@ -593,12 +643,30 @@
             }
         }
     </style>
+    <script>
+        // Initialize dark mode immediately to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            let theme = 'light';
+            
+            if (savedTheme) {
+                theme = savedTheme;
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                theme = 'dark';
+            }
+            
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Email Templates</h1>
-            <p>Send test emails with custom templates</p>
+            <div class="header-content">
+                <h1>Email Templates</h1>
+                <p>Send test emails with custom templates</p>
+            </div>
+            <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()">Dark</button>
         </div>
 
         <div class="config-section">
@@ -676,9 +744,44 @@
         let templates = [];
         let currentTemplateId = null;
 
+        // Dark Mode Functions
+        function initDarkMode() {
+            const savedTheme = localStorage.getItem('theme');
+            let theme = 'light';
+            
+            if (savedTheme) {
+                theme = savedTheme;
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                theme = 'dark';
+            }
+            
+            applyTheme(theme);
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const toggleBtn = document.getElementById('darkModeToggle');
+            if (toggleBtn) {
+                toggleBtn.textContent = theme === 'dark' ? 'Light' : 'Dark';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleDarkMode() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        }
+
+        // Make function globally available
+        window.toggleDarkMode = toggleDarkMode;
+
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('🚀 EmailJS Template Manager - Initializing...');
+            
+            // Initialize dark mode
+            initDarkMode();
             
             // Set hardcoded config values
             document.getElementById('publicKey').value = HARDCODED_CONFIG.publicKey;
